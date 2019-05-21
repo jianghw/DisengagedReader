@@ -1,1 +1,1 @@
-include ':app', ':ArithmeticLib'
+include ':app', ':ArithmeticLib', ':JavaLib'

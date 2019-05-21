@@ -15,11 +15,11 @@ public class DichotomyClass {
         List<Integer> src = new ArrayList<>();
         Integer[] array = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
         Collections.addAll(src, array);
-        int position = binarySearch(src, 10);
+        int position = doBinarySearch(src, 10);
         System.out.println(position);
     }
 
-    private static <T extends Number> int binarySearch(List<T> srcList, T item) {
+    private static <T extends Number> int doBinarySearch(List<T> srcList, T item) {
         int size = srcList.size();
         int low = 0, high = size - 1;
         while (low <= high) {
