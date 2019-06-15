@@ -1,4 +1,4 @@
-package com.android.server.am;
+package com.android.lib.am;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
