@@ -4,8 +4,11 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.lifecycle.LifecycleRegistry
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var lifecycleRegistry: LifecycleRegistry
 
     private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -33,5 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        lifecycleRegistry=LifecycleRegistry(this)
     }
 }
