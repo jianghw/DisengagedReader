@@ -1,5 +1,7 @@
 package com.magnificent.jianghw.jetpacklib
 
+import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,4 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleRegistry=LifecycleRegistry(this)
     }
+
+
+    internal class CustomLocationListener(
+        private val context: Context,private val callback:(Location)->Unit ){}
 }
