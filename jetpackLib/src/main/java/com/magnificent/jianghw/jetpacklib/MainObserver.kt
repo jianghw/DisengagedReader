@@ -1,10 +1,11 @@
 package com.magnificent.jianghw.jetpacklib
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.common.Lifecycle
+import androidx.lifecycle.common.LifecycleObserver
+import androidx.lifecycle.common.OnLifecycleEvent
 
-class MainObserver(var lifecycle: Lifecycle, var callback: MainObserverCallback) : LifecycleObserver {
+class MainObserver(var lifecycle: Lifecycle, var callback: MainObserverCallback) :
+    LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun doCreate() {
         callback.doPrintCreate()
