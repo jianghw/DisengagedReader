@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.common.Lifecycle
-import androidx.lifecycle.common.LifecycleOwner
-import androidx.lifecycle.runtime.LifecycleRegistry
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
