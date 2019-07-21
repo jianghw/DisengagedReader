@@ -23,8 +23,8 @@ abstract class Lifecycle {
     }
 
     enum class State {
-        DESROYED,
-        INITTALIZED,
+        DESTROYED,
+        INITIALIZED,
         CREATED,
         STARTED,
         RESUMED;
