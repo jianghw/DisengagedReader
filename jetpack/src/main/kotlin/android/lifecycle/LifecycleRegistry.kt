@@ -3,7 +3,6 @@ package android.lifecycle
 import android.annotation.SuppressLint
 import androidx.annotation.NonNull
 import androidx.arch.core.internal.FastSafeIterableMap
-import java.lang.IllegalArgumentException
 import java.lang.ref.WeakReference
 
 
@@ -95,10 +94,9 @@ class LifecycleRegistry(provider: LifecycleOwner) : Lifecycle() {
 
     class ObserverWithState(observer: LifecycleObserver, initialState: State) {
         val mState: State = initialState
-
         val mLifecycleObserver = observer
 
-        fun dispatchEvent(lifecycleOwner: LifecycleOwner, upEvent: Event) {
+        fun dispatchEvent(lifecycleOwner: LifecycleOwner, event: Event) {
         }
     }
 }
