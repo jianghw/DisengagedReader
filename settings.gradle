@@ -1,1 +1,1 @@
-include ':app', ':ArithmeticLib', ':JavaLib', ':AndroidLib', ':jetpack'
+include ':app', ':ArithmeticLib', ':JavaLib', ':AndroidLib', ':jetpack', ':basic-demo'
