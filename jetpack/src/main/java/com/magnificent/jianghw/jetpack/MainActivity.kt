@@ -1,43 +1,54 @@
 package com.magnificent.jianghw.jetpack
 
+import android.app.AlarmManagerService
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.location.Location
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.runtime.LifecycleRegistry
+import androidx.lifecycle.OnLifecycleEvent
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity: AppCompatActivity(), LifecycleOwner {
+class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     companion object {
         const val LOG_TAG: String = "MainActivity"
     }
 
     private lateinit var textMessage: TextView
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                textMessage.setText(R.string.title_home)
-                return@OnNavigationItemSelectedListener true
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    textMessage.setText(R.string.title_home)
+                    bindService(bindIntent, conn, Context.BIND_AUTO_CREATE)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_dashboard -> {
+                    textMessage.setText(R.string.title_dashboard)
+                    unbindService(conn)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_notifications -> {
+                    //textMessage.setText(R.string.title_notifications)
+                    textMessage.setText("count::${binderStub.currentNetworkTimeMillis()}")
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-            R.id.navigation_dashboard -> {
-                textMessage.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                textMessage.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
-            }
+            false
         }
-        false
-    }
 
+    private lateinit var bindIntent: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,7 +57,9 @@ class MainActivity: AppCompatActivity(), LifecycleOwner {
         textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        lifecycle.addObserver(MainObserver())
+
+        bindIntent = Intent(this, AlarmManagerService::class.java)
+
     }
 
     override fun onStart() {
@@ -83,5 +96,22 @@ class MainActivity: AppCompatActivity(), LifecycleOwner {
 
 
     internal class CustomLocationListener(
-        private val context: Context,private val callback:(Location)->Unit ){}
+        private val context: Context, private val callback: (Location) -> Unit
+    ) {}
+
+
+    private lateinit var binder: AlarmManagerService.AlarmBinder
+    private lateinit var binderStub: IMyAidlInterface
+
+    private val conn = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            Log.d(this@MainActivity::class.java.simpleName, this::onServiceDisconnected.name)
+        }
+
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            Log.d(this@MainActivity::class.java.simpleName, this::onServiceConnected.name)
+            //binder = p1 as AlarmManagerService.AlarmBinder
+            binderStub=IMyAidlInterface.Stub.asInterface(p1)
+        }
+    }
 }

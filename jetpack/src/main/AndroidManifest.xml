@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.magnificent.jianghw.jetpack">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.magnificent.jianghw.jetpack">
 
-    <application>
+    <application tools:ignore="GoogleAppIndexingWarning">
+
         <activity
                 android:name=".MainActivity"
                 android:label="@string/title_activity_main"
@@ -13,6 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="android.app.AlarmManagerService"/>
     </application>
 
 </manifest>
