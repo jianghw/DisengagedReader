@@ -6,8 +6,6 @@ import java.util.List;
 public class MyClass {
     public static void main(String[] args) {
 
-        abc(100);
-        fsdfsd(2);
     }
 
     private static void abc(int a) {

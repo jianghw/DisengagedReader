@@ -31,17 +31,20 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     textMessage.setText(R.string.title_home)
-                    bindService(bindIntent, conn, Context.BIND_AUTO_CREATE)
+                    //bindService(bindIntent, conn, Context.BIND_AUTO_CREATE)
+                    startService(bindIntent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_dashboard -> {
                     textMessage.setText(R.string.title_dashboard)
-                    unbindService(conn)
+                    //unbindService(conn)
+                    stopService(bindIntent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_notifications -> {
                     //textMessage.setText(R.string.title_notifications)
-                    textMessage.setText("count::${binderStub.currentNetworkTimeMillis()}")
+                    //textMessage.setText("count::${binderStub.currentNetworkTimeMillis()}")
+                    binder.removeMessage()
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -110,8 +113,8 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             Log.d(this@MainActivity::class.java.simpleName, this::onServiceConnected.name)
-            //binder = p1 as AlarmManagerService.AlarmBinder
-            binderStub=IMyAidlInterface.Stub.asInterface(p1)
+            binder = p1 as AlarmManagerService.AlarmBinder
+            //binderStub=IMyAidlInterface.Stub.asInterface(p1)
         }
     }
 }
